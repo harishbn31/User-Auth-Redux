@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from '../../config/config'
-// import {connect} from 'react-redux'
 
 
 export default class Register extends React.Component {
@@ -33,7 +32,7 @@ export default class Register extends React.Component {
             if(response.data.errors) {
                 alert(response.data.alert)
             } else {
-                console.log(response.data);
+                // console.log(response.data);
                 this.props.history.push('/users/login')
             }
         })
@@ -42,22 +41,20 @@ export default class Register extends React.Component {
     render(){
         return (
             <div>
-                <h2>Sign Up</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <label>UserName </label>
-                    <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/><br/>
-                    <label>Email</label>
-                    <input type="email" name="email" value={this.state.email} onChange={this.handleChange}/><br/>
-                    <label>Password</label>
-                    <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/> <br/>
-                    <input type="submit" />
-                </form>
+                <div className="col-md-4">
+                    <h2><b>Sign Up</b></h2>
+                    <form className="form-group" onSubmit={this.handleSubmit}>
+                        <label className="control-label">UserName </label>
+                        <input type="text" className="form-control" name="username" value={this.state.username} onChange={this.handleChange}/><br/>
+                        <label className="control-label">Email</label>
+                        <input type="email" className="form-control" name="email" value={this.state.email} onChange={this.handleChange}/><br/>
+                        <label className="control-label">Password</label>
+                        <input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleChange}/> <br/>
+                        <input type="submit" className="btn btn-primary"/>
+                    </form>
+                </div>
+                
             </div>
         )
     }
 }
-// const mapStateToProps = (state)=>{
-//     return {
-//         loggedUser: state.loggedUser
-//     }
-// }

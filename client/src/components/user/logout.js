@@ -1,27 +1,32 @@
 import React from 'react';
-import axios from '../../config/config';
+import {connect} from 'react-redux'
+import {removeUser} from '../../actions/user'
 
-export default class UserLogout extends React.Component {
+function Logout (props) {
 
-    componentDidMount() {
-        axios.delete('/users/logout', {
-            headers: {
-                'x-auth': localStorage.getItem('userAuthToken')
-            }
-        })
-        .then(response => {
+    // componentDidMount() {
+    //     axios.delete('/users/logout', {
+    //         headers: {
+    //             'x-auth': localStorage.getItem('userAuthToken')
+    //         }
+    //     })
+    //     .then(response => {
             localStorage.removeItem('userAuthToken')
-            this.props.handleAuth(false)
-            this.props.history.push('/users/login')
-        })
-        .catch(err => {
-            this.props.history.push('/users/login')
-        })
-    }
+            props.history.push('/users/login')
+            props.dispatch(removeUser())
+        // })
+        // .catch(err => {
+            // this.props.history.push('/users/login')
+        // })
+    // }
 
-    render() {
         return(
             <p>Logging out...</p>
-        );
+        )
+}
+const mapStateToProps =(state) => {
+    return {
+        user: state.user
     }
 }
+export default connect(mapStateToProps)(Logout)

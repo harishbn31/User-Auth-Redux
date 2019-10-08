@@ -50,9 +50,11 @@ router.post('/login', function(req, res) {
 
 // localhost:3001/users/account
 router.get('/account', authenticateUser, function(req, res){
-    const { user } = req
-    // res.send(user)
-    res.send(_.pick(user, ['_id', 'username', 'email', 'createdAt']))
+    const token = req.header('x-auth')
+    User.findByToken(token).then((user) => {
+        res.send(_.pick(user, ['_id', 'username', 'email', 'createdAt']))
+    }).catch(err => res.send("Error"))
+    // res.send(_.pick(user, ['_id', 'username', 'email', 'createdAt']))
 })
 
 // localhost:3001/users/logout

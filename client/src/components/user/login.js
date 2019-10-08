@@ -1,10 +1,11 @@
 import React from 'react'
 import axios from '../../config/config'
 // import {Redirect} from 'react-router-dom'
-// import {connect} from 'react-redux'
+import {connect} from 'react-redux'
+import {startSetUser} from '../../actions/user'
 
 
-export default class Register extends React.Component {
+class Login extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -35,10 +36,10 @@ export default class Register extends React.Component {
             } else {
                 const token = response.data.token
                 localStorage.setItem('userAuthToken', token)
-                this.props.handleAuth(true)
                 // this.setState({
                 //     isRedirect: true
                 // })
+                this.props.dispatch(startSetUser(response.data))
                 this.props.history.push('/users')
                 
             }
@@ -48,15 +49,24 @@ export default class Register extends React.Component {
         return (
             <div>
                 {/* {this.state.isRedirect && < Redirect to="/users" />} */}
-                <h2>Sign in</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <label>Email</label>
-                    <input type="email" name="email" value={this.state.email} onChange={this.handleChange}/><br/>
-                    <label>Password</label>
-                    <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/> <br/>
-                    <input type="submit" />
+                <div className="col-md-4">
+                <h2><b>Log In</b></h2>
+                <form className="form-group" onSubmit={this.handleSubmit}>
+                    <label className="control-label">Email</label>
+                    <input type="email" className="form-control" name="email" value={this.state.email} onChange={this.handleChange}/><br/>
+                    <label className="control-label">Password</label>
+                    <input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleChange}/> <br/>
+                    <input type="submit" className="btn btn-primary" />
                 </form>
+                </div>
+                
             </div>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+export default connect(mapStateToProps)(Login)
