@@ -3,6 +3,7 @@ import axios from '../../config/config'
 // import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {startSetUser} from '../../actions/user'
+import data from '../../../../classroom_data.json'
 
 
 class Login extends React.Component {
@@ -11,7 +12,8 @@ class Login extends React.Component {
         this.state = {
             email: '',
             password: '',
-            isRedirect: false
+            isRedirect: false,
+            users: data
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -49,6 +51,7 @@ class Login extends React.Component {
         return (
             <div>
                 {/* {this.state.isRedirect && < Redirect to="/users" />} */}
+                {console.log(this.state.users)}
                 <div className="col-md-4">
                 <h2><b>Log In</b></h2>
                 <form className="form-group" onSubmit={this.handleSubmit}>
